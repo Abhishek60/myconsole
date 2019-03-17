@@ -1,8 +1,7 @@
 <html> 
 <head> 
-<title>Abhishek Vaidya</title> 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-<style type="text/css"> 
+<title>Abhishek Vaidya-Full Stack and Backend Software Developer</title> 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script><style type="text/css"> 
 	body {
 		background-color: #300A24
 	}
@@ -12,7 +11,7 @@
 		width:750px;
 		margin-left:auto;
 		margin-right:auto;
-		margin-top:100px;
+		margin-top:80px;
 		font-size:14px;
 	}
 	a {
@@ -29,145 +28,13 @@
 		color: #ff0096;
 	}
 </style> 
-</head> 
-<body> 
-<script type="text/javascript"> 
-	var Typer={
-	text: null,
-	accessCountimer:null,
-	index:0, // current cursor position
-	speed:2, // speed of the Typer
-	file:"", //file, must be setted
-	accessCount:0, //times alt is pressed for Access Granted
-	deniedCount:0, //times caps is pressed for Access Denied
-	init: function(){// inizialize Hacker Typer
-		/*accessCountimer=setInterval(function(){Typer.updLstChr();},500); // inizialize timer for blinking cursor
-		$.get(Typer.file,function(data){// get the text file
-			Typer.text=data;// save the textfile in Typer.text
-			Typer.text = Typer.text.slice(0, Typer.text.length-1);
-		});*/
-		Typer.text='<span id="a">abhishek@vaidya</span>:<span id="b">~</span><span id="c">$</span> cat abhishekvaidya.txt<br/><br/>Hi, I\'m Abhishek Vaidya.<!-- laglaglaglaglaglaglaglaglaglaglaglag --><p>I majored in Bachelor of Engineering with a concentration in Computer Sicence.  I graduated from S.S.V.P.S. B.S.Deore College of Engineering on 2017.</p><!-- qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj --><p>I\'m Software Developer @ <a href="http://www.atos-syntel.net">Atos-Syntel</a></p><!- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><p>Resume @ <a href="https://www.dropbox.com/s/6fwtjehhpd5tcif/Abhishek-Resume.pdf?dl=0">Download</a></p><p>I love to read, listen to music, and travel.</p><!-- owlsqweoifjqwoefijqwoeifjqwoefijwef -->';
-			Typer.text = Typer.text.slice(0, Typer.text.length-1);
-			//alert(Typer.text);
-	},
- 
-	content:function(){
-		return $("#console").html();// get console content
-	},
- 
-	write:function(str){// append to console content
-		$("#console").append(str);
-		return false;
-	},
- 
-	makeAccess:function(){//create Access Granted popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
-		Typer.hidepop(); // hide all popups
-		Typer.accessCount=0; //reset count
-		var ddiv=$("<div id='gran'>").html(""); // create new blank div and id "gran"
-		ddiv.addClass("accessGranted"); // add class to the div
-		ddiv.html("<h1>ACCESS GRANTED</h1>"); // set content of div
-		$(document.body).prepend(ddiv); // prepend div to body
-		return false;
-	},
-	makeDenied:function(){//create Access Denied popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
-		Typer.hidepop(); // hide all popups
-		Typer.deniedCount=0; //reset count
-		var ddiv=$("<div id='deni'>").html(""); // create new blank div and id "deni"
-		ddiv.addClass("accessDenied");// add class to the div
-		ddiv.html("<h1>ACCESS DENIED</h1>");// set content of div
-		$(document.body).prepend(ddiv);// prepend div to body
-		return false;
-	},
- 
-	hidepop:function(){// remove all existing popups
-		$("#deni").remove();
-		$("#gran").remove();
-	},
- 
-	addText:function(key){//Main function to add the code
-		if(key.keyCode==18){// key 18 = alt key
-			Typer.accessCount++; //increase counter 
-			if(Typer.accessCount>=3){// if it's presed 3 times
-				Typer.makeAccess(); // make access popup
-			}
-		}else if(key.keyCode==20){// key 20 = caps lock
-			Typer.deniedCount++; // increase counter
-			if(Typer.deniedCount>=3){ // if it's pressed 3 times
-				Typer.makeDenied(); // make denied popup
-			}
-		}else if(key.keyCode==27){ // key 27 = esc key
-			Typer.hidepop(); // hide all popups
-		}else if(Typer.text){ // otherway if text is loaded
-			//alert(Typer.content());
-			var cont=Typer.content(); // get the console content
-			//alert(cont);
-			if(cont.substring(cont.length-1,cont.length)=="|") // if the last char is the blinking cursor
-				$("#console").html($("#console").html().substring(0,cont.length-1)); // remove it before adding the text
-			if(key.keyCode!=8){ // if key is not backspace
-				Typer.index+=Typer.speed;	// add to the index the speed
-			}else{
-				if(Typer.index>0) // else if index is not less than 0 
-					Typer.index-=Typer.speed;//	remove speed for deleting text
-			}
-			var text=Typer.text.substring(0,Typer.index)// parse the text for stripping html enities
-			var rtn= new RegExp("\n", "g"); // newline regex
-	
-			$("#console").html(text.replace(rtn,"<br/>"));// replace newline chars with br, tabs with 4 space and blanks with an html blank
-			window.scrollBy(0,50); // scroll to make sure bottom is always visible
-		}
-		if ( key.preventDefault && key.keyCode != 122 ) { // prevent F11(fullscreen) from being blocked
-			key.preventDefault()
-		};  
-		if(key.keyCode != 122){ // otherway prevent keys default behavior
-			key.returnValue = false;
-		}
-	},
- 
-	updLstChr:function(){ // blinking cursor
-		var cont=this.content(); // get console 
-		if(cont.substring(cont.length-1,cont.length)=="|") // if last char is the cursor
-			$("#console").html($("#console").html().substring(0,cont.length-1)); // remove it
-		else
-			this.write("|"); // else write it
-	}
-}
- 
-function replaceUrls(text) {
-	var http = text.indexOf("http://");
-	var space = text.indexOf(".me ", http);
-	if (space != -1) { 
-		var url = text.slice(http, space-1);
-		return text.replace(url, "<a href=\""  + url + "\">" + url + "</a>");
-	} else {
-	return text
-}
-}
-Typer.speed=3;
-Typer.file="abhishekvaidya.txt";
-Typer.init();
- 
-var timer = setInterval("t();", 30);
-function t() {
-	Typer.addText({"keyCode": 123748});
-	if (Typer.index > Typer.text.length) {
-		clearInterval(timer);
-	}
-}
- 
-</script> 
-<div id="console"></div> 
+
+</head>
+<body>
 <script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-610661-7']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
+var _0x35d5=['returnValue','indexOf','.me\x20','<a\x20href=\x22','</a>','file','abhishekvaidya.txt','init','t();','addText','text','length','#console','html','append','hidepop','accessCount','<div\x20id=\x27gran\x27>','addClass','accessGranted','<h1>ACCESS\x20GRANTED</h1>','body','prepend','deniedCount','<div\x20id=\x27deni\x27>','#deni','#gran','remove','keyCode','makeAccess','makeDenied','content','substring','index','speed','replace','<br/>','scrollBy','preventDefault'];(function(_0x160034,_0x38bda8){var _0x34c047=function(_0x25ff7a){while(--_0x25ff7a){_0x160034['push'](_0x160034['shift']());}};_0x34c047(++_0x38bda8);}(_0x35d5,0xa6));var _0x945b=function(_0x2f973,_0x5c8067){_0x2f973=_0x2f973-0x0;var _0x528af9=_0x35d5[_0x2f973];return _0x528af9;};var Typer={'text':null,'accessCountimer':null,'index':0x0,'speed':0x2,'file':'','accessCount':0x0,'deniedCount':0x0,'init':function(){Typer[_0x945b('0x0')]='<span\x20id=\x22a\x22>abhishek@vaidya</span>:<span\x20id=\x22b\x22>~</span><span\x20id=\x22c\x22>$</span>\x20cat\x20abhishekvaidya.txt<br/><br/>Hi,\x20I\x27m\x20Abhishek\x20Vaidya.<!--\x20laglaglaglaglaglaglaglaglaglaglaglag\x20--><p>I\x20majored\x20in\x20Bachelor\x20of\x20Engineering\x20with\x20a\x20concentration\x20in\x20Computer\x20Sicence.\x20\x20I\x20graduated\x20from\x20S.S.V.P.S.\x20B.S.Deore\x20College\x20of\x20Engineering\x20on\x202017.</p><!--\x20qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj\x20--><p>I\x27m\x20Software\x20Developer\x20@\x20<a\x20href=\x22http://www.atos-syntel.net\x22>Atos-Syntel</a></p><!-\x20oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi\x20--><p>->Migrating\x20client\x20web\x20application\x20from\x20.NET\x20platform\x20to\x20Java.</p><p>->Fixing\x20bugs\x20in\x20.NET\x20code\x20and\x20adding\x20new\x20features\x20and\x20functions</p><p>Resume\x20@\x20<a\x20href=\x22https://www.dropbox.com/s/6fwtjehhpd5tcif/Abhishek-Resume.pdf?dl=0\x22>Download</a></p><p>I\x20love\x20to\x20read,\x20listen\x20to\x20music,\x20and\x20travel.</p><!--\x20owlsqweoifjqwoefijqwoeifjqwoefijwef\x20--><span\x20id=\x22a\x22>abhishek@vaidya</span>:<span\x20id=\x22b\x22>~</span><span\x20id=\x22c\x22>$</span>\x20cat\x20TechnicalSkills.txt<br/><p>Programming\x20Languages</p><p>->Proficient\x20in\x20Java,Java\x20Server\x20Pages\x20(JSP),Spring\x20Boot,Kotlin,C,C++,C#,PhoneGap(HTML5+CSS+JavaScript),ASP.NET,Node.js.</p><p>Database</p><p>->SQLLite,\x20MYSql,\x20MS\x20SQL\x20Server\x202005</p><span\x20id=\x22a\x22>abhishek@vaidya</span>:<span\x20id=\x22b\x22>~</span><span\x20id=\x22c\x22>$</span>\x20cat\x20Projects.txt<br/><p>Secure\x20Health\x20IOT\x20for\x20Patient\x20Monitoring\x20using\x20Medicine\x20System(JSP+Raspberry\x20PI+Arduino+Python).</p><p>Courseware\x20Management\x20System(C#+ASP.NET).</p><p>Android\x20Application\x20for\x20Attendance\x20Management\x20System\x20(PhoneGap).</p><span\x20id=\x22a\x22>abhishek@vaidya</span>:<span\x20id=\x22b\x22>~</span><span\x20id=\x22c\x22>$</span>\x20cat\x20ContactDetails.txt<br/><p>Email\x20address:<a\x20href=\x22mailto:abhishekjvaidya@live.com\x22>abhishekjvaidya@live.com</a></p><p>LinkedIn:<a\x20href=\x22https://in.linkedin.com/in/abhishek-vaidya-a4a20a8a\x22>Abhishek\x20Vaidya</a></p><p>Contact\x20Number:\x20+919422236122</p>';Typer[_0x945b('0x0')]=Typer['text']['slice'](0x0,Typer['text'][_0x945b('0x1')]-0x1);},'content':function(){return $(_0x945b('0x2'))[_0x945b('0x3')]();},'write':function(_0xe99443){$('#console')[_0x945b('0x4')](_0xe99443);return![];},'makeAccess':function(){Typer[_0x945b('0x5')]();Typer[_0x945b('0x6')]=0x0;var _0x15ea4a=$(_0x945b('0x7'))[_0x945b('0x3')]('');_0x15ea4a[_0x945b('0x8')](_0x945b('0x9'));_0x15ea4a['html'](_0x945b('0xa'));$(document[_0x945b('0xb')])[_0x945b('0xc')](_0x15ea4a);return![];},'makeDenied':function(){Typer[_0x945b('0x5')]();Typer[_0x945b('0xd')]=0x0;var _0x18b195=$(_0x945b('0xe'))['html']('');_0x18b195['addClass']('accessDenied');_0x18b195[_0x945b('0x3')]('<h1>ACCESS\x20DENIED</h1>');$(document[_0x945b('0xb')])[_0x945b('0xc')](_0x18b195);return![];},'hidepop':function(){$(_0x945b('0xf'))['remove']();$(_0x945b('0x10'))[_0x945b('0x11')]();},'addText':function(_0x427a18){if(_0x427a18[_0x945b('0x12')]==0x12){Typer[_0x945b('0x6')]++;if(Typer[_0x945b('0x6')]>=0x3){Typer[_0x945b('0x13')]();}}else if(_0x427a18[_0x945b('0x12')]==0x14){Typer[_0x945b('0xd')]++;if(Typer['deniedCount']>=0x3){Typer[_0x945b('0x14')]();}}else if(_0x427a18[_0x945b('0x12')]==0x1b){Typer[_0x945b('0x5')]();}else if(Typer[_0x945b('0x0')]){var _0x4e821a=Typer[_0x945b('0x15')]();if(_0x4e821a[_0x945b('0x16')](_0x4e821a[_0x945b('0x1')]-0x1,_0x4e821a[_0x945b('0x1')])=='|')$(_0x945b('0x2'))[_0x945b('0x3')]($(_0x945b('0x2'))[_0x945b('0x3')]()[_0x945b('0x16')](0x0,_0x4e821a[_0x945b('0x1')]-0x1));if(_0x427a18['keyCode']!=0x8){Typer[_0x945b('0x17')]+=Typer[_0x945b('0x18')];}else{if(Typer[_0x945b('0x17')]>0x0)Typer['index']-=Typer['speed'];}var _0x394d1d=Typer[_0x945b('0x0')][_0x945b('0x16')](0x0,Typer[_0x945b('0x17')]);var _0x309002=new RegExp('\x0a','g');$(_0x945b('0x2'))[_0x945b('0x3')](_0x394d1d[_0x945b('0x19')](_0x309002,_0x945b('0x1a')));window[_0x945b('0x1b')](0x0,0x32);}if(_0x427a18[_0x945b('0x1c')]&&_0x427a18[_0x945b('0x12')]!=0x7a){_0x427a18['preventDefault']();};if(_0x427a18[_0x945b('0x12')]!=0x7a){_0x427a18[_0x945b('0x1d')]=![];}},'updLstChr':function(){var _0x4d4294=this[_0x945b('0x15')]();if(_0x4d4294['substring'](_0x4d4294[_0x945b('0x1')]-0x1,_0x4d4294['length'])=='|')$('#console')[_0x945b('0x3')]($(_0x945b('0x2'))[_0x945b('0x3')]()[_0x945b('0x16')](0x0,_0x4d4294['length']-0x1));else this['write']('|');}};function replaceUrls(_0xad8932){var _0x1cdf44=_0xad8932[_0x945b('0x1e')]('http://');var _0x2fd024=_0xad8932[_0x945b('0x1e')](_0x945b('0x1f'),_0x1cdf44);if(_0x2fd024!=-0x1){var _0x112d99=_0xad8932['slice'](_0x1cdf44,_0x2fd024-0x1);return _0xad8932[_0x945b('0x19')](_0x112d99,_0x945b('0x20')+_0x112d99+'\x22>'+_0x112d99+_0x945b('0x21'));}else{return _0xad8932;}}Typer['speed']=0x3;Typer[_0x945b('0x22')]=_0x945b('0x23');Typer[_0x945b('0x24')]();var timer=setInterval(_0x945b('0x25'),0x1e);function t(){Typer[_0x945b('0x26')]({'keyCode':0x1e364});if(Typer[_0x945b('0x17')]>Typer[_0x945b('0x0')][_0x945b('0x1')]){clearInterval(timer);}}
 </script>
-</body> 
-</html> 
+<div id="console"></div> 
+</body>
+</html> 	
+</body>
